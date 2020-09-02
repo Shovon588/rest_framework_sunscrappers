@@ -1,0 +1,12 @@
+
+venv/
+
+rest_framework_practice/rest_framework_practice/__pycache__/
+
+.idea/
+
+rest_framework_practice/rental/migrations/
+
+rest_framework_practice/rental/__pycache__/
+
+rest_framework_practice/db.sqlite3
