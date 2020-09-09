@@ -18,3 +18,9 @@ class BorrowedSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Borrowed
         fields = ('id', 'what', 'to_who', 'when', 'returned')
+
+
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.ImageUpload
+        fields = ('id', 'image_name', 'image')
