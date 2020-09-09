@@ -25,3 +25,11 @@ class Borrowed(models.Model):
 
     def __str__(self):
         return "%s to %s" % (self.what, self.to_who)
+
+
+class ImageUpload(models.Model):
+    image_name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='images/')
+
+    def __str__(self):
+        return self.image_name
