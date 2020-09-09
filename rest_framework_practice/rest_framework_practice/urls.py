@@ -17,10 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 
 from . api import router
+from rental import apiview
 import djoser
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include(router.urls)),
+    path('api/v1/images/', apiview.ImageAPIView.as_view()),
     path('api/auth/', include('djoser.urls.authtoken'))
 ]
