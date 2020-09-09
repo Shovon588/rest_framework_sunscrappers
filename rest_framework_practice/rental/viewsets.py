@@ -1,5 +1,5 @@
-from . models import Friend, Belonging, Borrowed
-from . serializers import FriendSerializer, BelongingSerializer, BorrowedSerializer
+from . models import Friend, Belonging, Borrowed, ImageUpload
+from . serializers import FriendSerializer, BelongingSerializer, BorrowedSerializer, ImageSerializer
 
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
@@ -21,3 +21,4 @@ class BorrowedViewSet(viewsets.ModelViewSet):
     queryset = Borrowed.objects.all()
     serializer_class = BorrowedSerializer
     permission_classes = [IsAdminUser]
+
