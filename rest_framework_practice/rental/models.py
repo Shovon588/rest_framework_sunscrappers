@@ -1,16 +1,24 @@
 from django.db import models
-
+from django.contrib.auth.models import User
+from django.conf import settings
 # Create your models here.
 
 
-class Friend(models.Model):
+class OwnerModel(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        abstract = True
+
+
+class Friend(OwnerModel):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
 
 
-class Belonging(models.Model):
+class Belonging(OwnerModel):
     name = models.CharField(max_length=155)
 
     def __str__(self):
@@ -25,11 +33,3 @@ class Borrowed(models.Model):
 
     def __str__(self):
         return "%s to %s" % (self.what, self.to_who)
-
-
-class ImageUpload(models.Model):
-    image_name = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='images/')
-
-    def __str__(self):
-        return self.image_name
