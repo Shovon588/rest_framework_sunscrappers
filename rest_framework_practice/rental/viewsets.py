@@ -1,24 +1,44 @@
-from . models import Friend, Belonging, Borrowed, ImageUpload
-from . serializers import FriendSerializer, BelongingSerializer, BorrowedSerializer, ImageSerializer
+from . models import Friend, Belonging, Borrowed
+from . serializers import FriendSerializer, BelongingSerializer, BorrowedSerializer
 
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
+from rest_framework.permissions import IsAuthenticated
+
+from . permissions import IsOwner
 
 
 class FriendViewset(viewsets.ModelViewSet):
-    queryset = Friend.objects.all()
+    permission_classes = [IsAuthenticated, IsOwner]
     serializer_class = FriendSerializer
-    permission_classes = [IsAuthenticated]
+
+    queryset = Friend.objects.all()
+
+    def get_queryset(self):
+        queryset = self.queryset
+        query_set = queryset.filter(owner=self.request.user)
+        return query_set
 
 
 class BelongingViewset(viewsets.ModelViewSet):
-    queryset = Belonging.objects.all()
     serializer_class = BelongingSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated, IsOwner]
+
+    queryset = Belonging.objects.all()
+
+    def get_queryset(self):
+        queryset = self.queryset
+        query_set = queryset.filter(owner=self.request.user)
+        return query_set
 
 
 class BorrowedViewSet(viewsets.ModelViewSet):
-    queryset = Borrowed.objects.all()
     serializer_class = BorrowedSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAuthenticated, IsOwner]
+
+    queryset = Borrowed.objects.all()
+
+    def get_queryset(self):
+        queryset = self.queryset
+        query_set = queryset.filter(owner=self.request.user)
+        return query_set
 
